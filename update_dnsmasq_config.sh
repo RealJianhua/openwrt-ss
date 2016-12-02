@@ -35,14 +35,12 @@ cd /etc/dnsmasq.d/
 if [ $gfw = 1 ]; then 
 	wget --no-check-certificate -O accelerated-domains.china.conf http://107.170.214.200:1602/accelerated-domains.china.conf
 	wget --no-check-certificate -O bogus-nxdomain.china.conf http://107.170.214.200:1602/bogus-nxdomain.china.conf
-	echo 'gfw=1'
 else
 	wget --no-check-certificate -O accelerated-domains.china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/accelerated-domains.china.conf
 	wget --no-check-certificate -O bogus-nxdomain.china.conf https://raw.githubusercontent.com/felixonmars/dnsmasq-china-list/master/bogus-nxdomain.china.conf
 fi
 
-echo echo "accelerated dimains dns is $myDNS"
-sed -i 's/114.114.114.114/219.141.140.10/' accelerated-domains.china.conf
+sed -i "s/114.114.114.114/$myDNS/" accelerated-domains.china.conf
 wget -O foreign_list.conf http://107.170.214.200:1602/foreign_list.conf
 
 /etc/init.d/dnsmasq restart

@@ -46,7 +46,7 @@ echo "conf-dir=/etc/dnsmasq.d" >> /etc/dnsmasq.conf
 echo "log-queries" >> /etc/dnsmasq.conf
 echo "log-facility=/var/log/dnsmasq.log" >> /etc/dnsmasq.conf
 /etc/update_chnroute_list.sh
-/etc/update_dnsmasq_config.sh
+/etc/update_dnsmasq_config.sh -g
 
 #人工配置
 # 1. ChinaDNS
