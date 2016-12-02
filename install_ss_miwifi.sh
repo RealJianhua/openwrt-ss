@@ -61,9 +61,9 @@ opkg install shadowsocks-libev-spec_2.1.4-1_ramips_24kec.ipk
 opkg install luci-app-shadowsocks-spec_1.3.2-1_all.ipk
 
 #配置 dnsmasq
-echo "conf-dir=/etc/dnsmasq.d" >> 1.txt
-echo "log-queries" >> 1.txt
-echo "log-facility=/var/log/dnsmasq.log" >> 1.txt
+echo "conf-dir=/etc/dnsmasq.d" >> /etc/dnsmasq.conf
+echo "log-queries" >> /etc/dnsmasq.conf
+echo "log-facility=/var/log/dnsmasq.log" >> /etc/dnsmasq.conf
 /etc/update_chnroute_list.sh
 /etc/update_dnsmasq_config.sh
 
