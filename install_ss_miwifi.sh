@@ -38,7 +38,6 @@ chmod +x /etc/update_dnsmasq_config.sh
 chmod +x /etc/update_chnroute_list.sh
 chmod +x /etc/shadowsocks_watchdog.sh
 
-
 #download ipk
 wget http://107.170.214.200:1602/ChinaDNS_1.3.2-4_ramips_24kec.ipk
 wget http://107.170.214.200:1602/ip_3.16.0-1_ramips_24kec.ipk
