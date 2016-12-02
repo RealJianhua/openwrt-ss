@@ -21,21 +21,23 @@ cd /tmp
 #vt-hk1.vnet.link:33224
 #更新软件源
 #/etc/opkg.conf
-#wget http://107.170.214.200:1602/opkg.conf
-#mv opkg.conf /etc/opkg.conf
-#
+#wget http://107.170.214.200:1602/ssconf/opkg-miwifi.conf
+#mv opkg-miwifi.conf /etc/opkg.conf
+#opkg update
 #更新wget，固件里的版本太旧
+#opkg install wget 
 
 #download timed script
-wget http://107.170.214.200:1602/update_dnsmasq_config.sh
-wget http://107.170.214.200:1602/update_chnroute_list.sh
-wget http://107.170.214.200:1602/shadowsocks_watchdog.sh
+wget http://107.170.214.200:1602/ssconf/update_dnsmasq_config.sh
+wget http://107.170.214.200:1602/ssconf/update_chnroute_list.sh
+wget http://107.170.214.200:1602/ssconf/shadowsocks_watchdog.sh
 mv update_dnsmasq_config.sh /etc/update_dnsmasq_config.sh
 mv update_chnroute_list.sh /etc/update_chnroute_list.sh
 mv shadowsocks_watchdog.sh /etc/shadowsocks_watchdog.sh
 chmod +x /etc/update_dnsmasq_config.sh
 chmod +x /etc/update_chnroute_list.sh
 chmod +x /etc/shadowsocks_watchdog.sh
+
 
 #download ipk
 wget http://107.170.214.200:1602/ChinaDNS_1.3.2-4_ramips_24kec.ipk
