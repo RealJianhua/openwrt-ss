@@ -1,22 +1,3 @@
-#!/bin/sh
-# 核心原理：
-# 1. 解决 dns 投毒问题
-# dnsmasq 规则：
-# * 墙内白名单，走指定的国内dns （为什么不走chinadns，是因为chinadns存在把国内域名解析为国外ip的情况）
-# * 墙外黑名单，通过shadowsocks 解析dns，实质是tcp/ip dns
-# * 黑/白名单以外的未知host，走chinadns。额外再做一层chinadns，是因为chinadns在多数情况下，能够解析墙外的host
-
-# 2. 用shadowsocks代理翻墙
-# * chnroute list（国内路由表）, 提供了墙内ip段，非墙内ip，都走shadowsocks代理，理论上存在误伤的可能
-# * chinadns用来判断国内外ip的列表，共用chnroute list。
-
-# 3. 定时任务
-# * update_dnsmasq_config.sh 定期更新墙内、外域名名单，供dnsmasq
-# * update_chnroute_list.sh 定期更新 chnroute list
-# * shadowsocks_watchdog.sh 定时执行，检测shadowsocks运行状态
-# * 定时清空 /var/log/dnsmasq.log，dns查询会产生大量的日志，最好10-20分钟即清空一次 echo "" > /var/log/dnsmasq.log
-# * 定时重启路由器。路由器长期运行，一般会有各种状态bug，导致无法上网，可以每周重启一次
-# 
 cd /tmp
 #vt-hk1.vnet.link:33224
 #更新软件源
