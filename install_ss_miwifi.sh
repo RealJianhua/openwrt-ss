@@ -76,9 +76,7 @@ echo "log-facility=/var/log/dnsmasq.log" >> 1.txt
 
 # 2. Shadowsocks
 # * 取消[使用配置文件]
-# *  vt-hk1.vnet.link:34877
-#    密码 ekfe2342sdfk
-#    aes-256-cfb
+# * 填写账号信息
 # * 超时600
 # * 打开udp转发，端口35354
 # * 路由表自定义为/etc/chinadns_chnroute.txt (如果默认已经是，跳过)
