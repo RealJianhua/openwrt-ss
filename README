@@ -1,0 +1,50 @@
+1. 刷机问题
+1.1. http://sspai.com/28457
+1.2. https://aiguge.xyz/pandorabox-shadowsocks/  , 这一篇附带了2016年的PandoraBox固件，可能解决自动重置的问题，还没验证
+
+2. 装机
+2.1. 配置好无线网信息
+2.2. 运行install_ss_miwifi.sh  （只适合小米Mini, 其他路由器，要修改适配路由器的shadowsocks、chinadns的ipk）
+2.3. ChinaDNS
+ * 打开双向过滤
+ * 推荐把把114dns替换为网关的dns
+ * 端口 35300，默认端口是5300，太小容易被占用
+ * 路由表自定义为/etc/chinadns_chnroute.txt (如果默认已经是，跳过)
+ * 把路由器dns转发到chinadns:127.0.0.1#35300、忽略解析文件
+
+2.4. Shadowsocks
+ * 取消[使用配置文件]
+ * 填写ss账号信息
+ * 超时600
+ * 打开udp转发，端口35354，使用其他端口要自己修改 /etc/dnsmasq.d/foreign_list.conf里的端口
+ * 路由表自定义为/etc/chinadns_chnroute.txt (如果默认已经是，跳过)
+ * 启用后，运行 /etc/shadowsocks_watchdog.sh 观看是否运行正常
+
+2.5. 定时任务设置
+ * update_dnsmasq_config.sh 定期更新墙内、外域名名单，供dnsmasq
+ * update_chnroute_list.sh 定期更新 chnroute list
+ * shadowsocks_watchdog.sh 定时执行，检测shadowsocks运行状态
+ * 定时清空 /var/log/dnsmasq.log，dns查询会产生大量的日志，最好10-20分钟即清空一次 echo "" > /var/log/dnsmasq.log
+ * 定时重启路由器。路由器长期运行，一般会有各种状态bug，导致无法上网，可以每周重启一次
+
+2.6. 重启
+ 应该已经能翻墙了，重启下试试一切是否依然运作
+
+3. 软件版本提醒
+3.1. shadowsocks 经过测试shadowsocks只能装2.1.4的，别的因为内核不兼容，安装不上
+
+
+4. 做了这些事情
+4.1 解决 dns 投毒问题
+dnsmasq 规则：
+ * 墙内白名单，走指定的国内dns （为什么不走chinadns，是因为chinadns存在国内域名解析为国外ip的情况）
+ * 墙外黑名单，通过shadowsocks 解析dns，实质是tcp/ip dns
+ * 黑/白名单以外的未知host，走chinadns。额外再做一层chinadns，是因为chinadns在多数情况下，能够解析墙外的host
+ * 更简洁的方案是：除了白名单以外，都走shadowsocks dns转发；或反之，除了黑名单走shadowsocks dns转发，其他域名都走网关dns或chinadns（server=/#/127.0.0.1#35300）
+
+4.2. 用shadowsocks代理翻墙
+ * chnroute list（国内路由表）, 提供了墙内ip段，非墙内ip，都走shadowsocks代理，理论上存在误伤的可能
+
+5. 未解决问题
+小米路由器Mini，刷http://downloads.openwrt.org.cn/官方的PandoraBox版本(08-Jun-2015 22:24), 存在偶发的重启后系统自动重置的问题，网上说是固件版本的bug
+没有找到新版本的固件，只能定时备份
