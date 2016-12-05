@@ -25,12 +25,12 @@ if [ ! -d "/etc/dnsmasq.d/" ]; then
 	mkdir /etc/dnsmasq.d/
 fi
 
-# accelerated-domains.china_custom.conf 用于自定义新增新发现的国内域名
-if [ ! -f "/etc/accelerated-domains.china_custom.conf" ]; then
-    touch /etc/accelerated-domains.china_custom.conf
-fi
-
 cd /etc/dnsmasq.d/
+
+# accelerated-domains.china_custom.conf 用于自定义新增新发现的国内域名
+if [ ! -f "/etc/dnsmasq.d/accelerated-domains.china_custom.conf" ]; then
+    touch /etc/dnsmasq.d/accelerated-domains.china_custom.conf
+fi
 
 if [ $gfw = 1 ]; then 
 	wget --no-check-certificate -O accelerated-domains.china.conf http://107.170.214.200:1602/accelerated-domains.china.conf

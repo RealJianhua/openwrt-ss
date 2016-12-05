@@ -37,6 +37,7 @@ opkg install libgmp
 opkg install libnettle
 rm /etc/config/chinadns #移除openwrt里旧版chinadns
 rm /etc/config/chinadns-opkg
+rm /etc/config/shadowsocks  #可能有自带的ss
 opkg install ChinaDNS_1.3.2-4_ramips_24kec.ipk
 opkg install luci-app-chinadns_1.5.0-1_all.ipk
 opkg install shadowsocks-libev-spec_2.1.4-1_ramips_24kec.ipk

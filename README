@@ -4,11 +4,11 @@
 
 2. 装机
 2.1. 配置好无线网信息
-2.2. 运行install_ss_miwifi.sh  （只适合小米Mini, 其他路由器，要修改适配路由器的shadowsocks、chinadns的ipk）
+2.2. a) chmod +x install_ss_misifi.sh b) ./install_ss_miwifi.sh  （只适合小米Mini, 其他路由器，要修改适配路由器的shadowsocks、chinadns的ipk）
 2.3. ChinaDNS
  * 打开双向过滤
  * 推荐把把114dns替换为网关的dns
- * 端口 35300，默认端口是5300，太小容易被占用
+ * 端口 35354，默认端口是5353，太小容易被占用
  * 路由表自定义为/etc/chinadns_chnroute.txt (如果默认已经是，跳过)
  * 把路由器dns转发到chinadns:127.0.0.1#35300、忽略解析文件
 
@@ -38,7 +38,7 @@
 4.1 解决 dns 投毒问题
 dnsmasq 规则：
  * 墙内白名单，走指定的国内dns （为什么不走chinadns，是因为chinadns存在国内域名解析为国外ip的情况）
- * 墙外黑名单，通过shadowsocks 解析dns，实质是tcp/ip dns
+ * 墙外黑名单，通过shadowsocks 转发解析dns
  * 黑/白名单以外的未知host，走chinadns。额外再做一层chinadns，是因为chinadns在多数情况下，能够解析墙外的host
  * 更简洁的方案是：除了白名单以外，都走shadowsocks dns转发；或反之，除了黑名单走shadowsocks dns转发，其他域名都走网关dns或chinadns（server=/#/127.0.0.1#35300）
 
