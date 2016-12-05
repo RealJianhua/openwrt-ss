@@ -16,7 +16,7 @@
  * 取消[使用配置文件]
  * 填写ss账号信息
  * 超时600
- * 打开udp转发，端口35354，使用其他端口要自己修改 /etc/dnsmasq.d/foreign_list.conf里的端口
+ * 打开udp转发，端口35300，使用其他端口要自己修改 /etc/dnsmasq.d/foreign_list.conf里的端口
  * 路由表自定义为/etc/chinadns_chnroute.txt (如果默认已经是，跳过)
  * 启用后，运行 /etc/shadowsocks_watchdog.sh 观看是否运行正常
 
@@ -26,6 +26,13 @@
  * shadowsocks_watchdog.sh 定时执行，检测shadowsocks运行状态
  * 定时清空 /var/log/dnsmasq.log，dns查询会产生大量的日志，最好10-20分钟即清空一次 echo "" > /var/log/dnsmasq.log
  * 定时重启路由器。路由器长期运行，一般会有各种状态bug，导致无法上网，可以每周重启一次
+=========
+*/15 * * * * /etc/shadowsocks_watchdog.sh >> /var/log/shadowsocks_watchdog.log
+0 5 * * 1 /etc/update_dnsmasq_config.sh
+2 5 * * 1 /etc/update_chnroute_list.sh
+*/15 * * * * echo "clear" > /var/log/dnsmasq.log
+20 5 * * 1 reboot
+
 
 2.6. 重启
  应该已经能翻墙了，重启下试试一切是否依然运作

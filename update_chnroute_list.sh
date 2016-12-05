@@ -10,3 +10,8 @@ wget -O- 'http://ftp.apnic.net/apnic/stats/apnic/delegated-apnic-latest' | \
    /tmp/chnroute_list.tmp
 cat /tmp/chnroute_list.tmp  /etc/chnroute_list_custom.conf | sort | uniq | sed -e '/^$/d' > /etc/chinadns_chnroute.txt
 rm /tmp/chnroute_list.tmp
+
+/etc/init.d/shadowsocks stop
+/etc/init.d/shadowsocks start
+/etc/init.d/chinadns stop
+/etc/init.d/chinadns start
