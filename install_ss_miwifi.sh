@@ -28,6 +28,7 @@ wget http://107.170.214.200:1602/luci-app-shadowsocks-spec_1.3.2-1_all.ipk
 wget http://107.170.214.200:1602/shadowsocks-libev-spec_2.1.4-1_ramips_24kec.ipk
 
 #install
+opkg install wget
 opkg install libc_0.9.33.2-1_ramips_24kec.ipk
 opkg install ip_3.16.0-1_ramips_24kec.ipk
 opkg install libopenssl
