@@ -6,7 +6,7 @@ wget http://107.170.214.200:1602/ssconf/opkg-miwifi.conf
 mv opkg-miwifi.conf /etc/opkg.conf
 opkg update
 #更新wget，固件里的版本太旧
-opkg install wget 
+opkg install wget
 
 #download timed script
 wget http://107.170.214.200:1602/ssconf/update_dnsmasq_config.sh
@@ -22,13 +22,13 @@ chmod +x /etc/shadowsocks_watchdog.sh
 #download ipk
 wget http://107.170.214.200:1602/ChinaDNS_1.3.2-4_ramips_24kec.ipk
 wget http://107.170.214.200:1602/ip_3.16.0-1_ramips_24kec.ipk
+wget http://107.170.214.200:1602/libc_0.9.33.2-1_ramips_24kec.ipk
 wget http://107.170.214.200:1602/luci-app-chinadns_1.5.0-1_all.ipk
 wget http://107.170.214.200:1602/luci-app-shadowsocks-spec_1.3.2-1_all.ipk
 wget http://107.170.214.200:1602/shadowsocks-libev-spec_2.1.4-1_ramips_24kec.ipk
 
 #install
-opkg install wget
-opkg install libc
+opkg install libc_0.9.33.2-1_ramips_24kec.ipk
 opkg install ip_3.16.0-1_ramips_24kec.ipk
 opkg install libopenssl
 opkg install libgcc
