@@ -42,7 +42,7 @@ fi
 
 sed -i "s/114.114.114.114/$myDNS/" accelerated-domains.china.conf
 wget -O foreign_list.conf http://107.170.214.200:1602/foreign_list.conf
-wget -O accelerated-address.conf http://107.170.214.200:1602/accelerated-address.conf
+wget -O accelerated-address.conf http://107.170.214.200:1602/ssconf/accelerated-address.conf
 
 /etc/init.d/dnsmasq restart
 echo "" > /var/log/dnsmasq.log
