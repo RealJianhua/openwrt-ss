@@ -28,8 +28,8 @@ fi
 cd /etc/dnsmasq.d/
 
 # accelerated-domains.china_custom.conf 用于自定义新增新发现的国内域名
-if [ ! -f "/etc/dnsmasq.d/accelerated-domains.china_custom.conf" ]; then
-    touch /etc/dnsmasq.d/accelerated-domains.china_custom.conf
+if [ ! -f "/etc/dnsmasq.d/custom.conf" ]; then
+    touch /etc/dnsmasq.d/custom.conf
 fi
 
 if [ $gfw = 1 ]; then 
@@ -42,6 +42,7 @@ fi
 
 sed -i "s/114.114.114.114/$myDNS/" accelerated-domains.china.conf
 wget -O foreign_list.conf http://107.170.214.200:1602/foreign_list.conf
+wget -O accelerated-address.conf http://107.170.214.200:1602/accelerated-address.conf
 
 /etc/init.d/dnsmasq restart
 echo "" > /var/log/dnsmasq.log

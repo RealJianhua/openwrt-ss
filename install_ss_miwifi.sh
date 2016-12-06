@@ -46,6 +46,7 @@ opkg install luci-app-shadowsocks-spec_1.3.2-1_all.ipk
 echo "conf-dir=/etc/dnsmasq.d" >> /etc/dnsmasq.conf
 echo "log-queries" >> /etc/dnsmasq.conf
 echo "log-facility=/var/log/dnsmasq.log" >> /etc/dnsmasq.conf
+echo "cache-size=1500" >> /etc/dnsmasq.conf
 /etc/update_chnroute_list.sh
 /etc/update_dnsmasq_config.sh -g
 
