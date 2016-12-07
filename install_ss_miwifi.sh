@@ -71,13 +71,3 @@ echo "cache-size=1500" >> /etc/dnsmasq.conf
 
 # 4. 重启
 # reboot
-
-
-
-
-
-
-
-
-
-
