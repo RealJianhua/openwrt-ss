@@ -10,6 +10,7 @@ opkg update
 wget http://107.170.214.200:1602/ssconf/update_dnsmasq_config.sh
 wget http://107.170.214.200:1602/ssconf/update_chnroute_list.sh
 wget http://107.170.214.200:1602/ssconf/shadowsocks_watchdog.sh
+wget http://107.170.214.200:1602/ssconf/shadowsocks.conf.tmp
 mv update_dnsmasq_config.sh /etc/update_dnsmasq_config.sh
 mv update_chnroute_list.sh /etc/update_chnroute_list.sh
 mv shadowsocks_watchdog.sh /etc/shadowsocks_watchdog.sh
@@ -43,12 +44,32 @@ opkg install shadowsocks-libev-spec_2.1.4-1_ramips_24kec.ipk
 opkg install luci-app-shadowsocks-spec_1.3.2-1_all.ipk
 
 #配置 dnsmasq
-echo "conf-dir=/etc/dnsmasq.d" >> /etc/dnsmasq.conf
-echo "log-queries" >> /etc/dnsmasq.conf
-echo "log-facility=/var/log/dnsmasq.log" >> /etc/dnsmasq.conf
-echo "cache-size=1500" >> /etc/dnsmasq.conf
+
+if ! grep -q "conf-dir=/etc/dnsmasq.d" /etc/dnsmasq.conf
+then
+    echo "conf-dir=/etc/dnsmasq.d" >> /etc/dnsmasq.conf
+	echo "log-queries" >> /etc/dnsmasq.conf
+	echo "log-facility=/var/log/dnsmasq.log" >> /etc/dnsmasq.conf
+	echo "cache-size=1500" >> /etc/dnsmasq.conf
+fi
+
 /etc/update_chnroute_list.sh
+/etc/init.d/shadowsocks stop
 /etc/update_dnsmasq_config.sh -g
+#cp /tmp/shadowsocks.conf.tmp /etc/config/shadowsocks
+
+crontab -l > /tmp/crontab.bak
+if ! grep -q "/etc/shadowsocks_watchdog.sh" /tmp/crontab.bak
+then
+    echo '*/15 * * * * /etc/shadowsocks_watchdog.sh >> /var/log/shadowsocks_watchdog.log' >> /tmp/crontab.bak;
+    echo '0 5 * * 1 /etc/update_dnsmasq_config.sh' >> /tmp/crontab.bak;
+    echo '2 5 * * 1 /etc/update_chnroute_list.sh' >> /tmp/crontab.bak;
+    echo '*/15 * * * * echo "clear" > /var/log/dnsmasq.log' >> /tmp/crontab.bak;
+    echo '20 5 * * 1 reboot' >> /tmp/crontab.bak;
+    crontab /tmp/crontab.bak;
+    echo 'crontab config finish.';
+    rm /tmp/crontab.bak;
+fi
 
 #人工配置
 # 1. ChinaDNS

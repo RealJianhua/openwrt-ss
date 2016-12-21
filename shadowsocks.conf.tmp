@@ -1,0 +1,17 @@
+
+config shadowsocks
+	option enable '1'
+	option lan_ac_mode '0'
+	option use_conf_file '0'
+	option server '{00.00.00.00}'
+	option server_port '443'
+	option timeout '600'
+	option encrypt_method 'aes-256-cfb'
+	option ignore_list '/etc/chinadns_chnroute.txt'
+	option udp_relay '1'
+	option tunnel_port '35300'
+	option local_port '1080'
+	option tunnel_enable '1'
+	option password '{pwd}'
+	option tunnel_forward '8.8.8.8:53'
+

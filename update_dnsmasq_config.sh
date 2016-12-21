@@ -1,5 +1,5 @@
 #!/bin/sh
-myDNS="114.114.114.114"
+myDNS="223.6.6.6"
 gfw=0
 
 while getopts "d:g" arg
