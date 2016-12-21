@@ -1,7 +1,5 @@
 cd /tmp
-#vt-hk1.vnet.link:33224
-#更新软件源
-/etc/opkg.conf
+#更新软件源 /etc/opkg.conf
 wget http://107.170.214.200:1602/ssconf/opkg-miwifi.conf
 mv opkg-miwifi.conf /etc/opkg.conf
 opkg update
