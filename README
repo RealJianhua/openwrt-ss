@@ -10,19 +10,19 @@
  * 推荐把把114dns替换为网关的dns
  * 端口 35354，默认端口是5353，太小容易被占用
  * 路由表自定义为/etc/chinadns_chnroute.txt (如果默认已经是，跳过)
- * 把路由器dns转发到chinadns:127.0.0.1#35300、忽略解析文件
+ * 把路由器dns转发到chinadns:127.0.0.1#35354、忽略解析文件
 
 2.4. Shadowsocks
  * 取消[使用配置文件]
  * 填写ss账号信息
  * 超时600
- * 打开udp转发，端口35300，使用其他端口要自己修改 /etc/dnsmasq.d/foreign_list.conf里的端口
+ * 打开udp转发，端口35300，使用其他端口要自己修改 /etc/dnsmasq.d/foreign_list.conf 里的端口
  * 路由表自定义为/etc/chinadns_chnroute.txt (如果默认已经是，跳过)
  * 启用后，运行 /etc/shadowsocks_watchdog.sh 观看是否运行正常
 
 2.5. 定时任务设置
  * update_dnsmasq_config.sh 定期更新墙内、外域名名单，供dnsmasq
- * update_chnroute_list.sh 定期更新 chnroute list
+ * update_chnroute_list.sh 定期更新国内ip段
  * shadowsocks_watchdog.sh 定时执行，检测shadowsocks运行状态
  * 定时清空 /var/log/dnsmasq.log，dns查询会产生大量的日志，最好10-20分钟即清空一次 echo "" > /var/log/dnsmasq.log
  * 定时重启路由器。路由器长期运行，一般会有各种状态bug，导致无法上网，可以每周重启一次
@@ -47,7 +47,9 @@ dnsmasq 规则：
  * 墙内白名单，走指定的国内dns （为什么不走chinadns，是因为chinadns存在国内域名解析为国外ip的情况）
  * 墙外黑名单，通过shadowsocks 转发解析dns
  * 黑/白名单以外的未知host，走chinadns。额外再做一层chinadns，是因为chinadns在多数情况下，能够解析墙外的host
- * 更简洁的方案是：除了白名单以外，都走shadowsocks dns转发；或反之，除了黑名单走shadowsocks dns转发，其他域名都走网关dns或chinadns（server=/#/127.0.0.1#35300）
+ * 可以用得更简洁：
+ 1. 除了白名单以外，都走shadowsocks dns转发 (删掉foreign_list.conf，然后把路由器的dns转发设置为127.0.0.1#35300，或在dnsmasq加一条解析规则：server=/#/127.0.0.1#35300)；
+ 2. 或反之，除了黑名单走shadowsocks dns转发，其他域名都走网关dns或chinadns，删掉accelerated-domains.china.conf即可。
 
 4.2. 用shadowsocks代理翻墙
  * chnroute list（国内路由表）, 提供了墙内ip段，非墙内ip，都走shadowsocks代理，理论上存在误伤的可能
